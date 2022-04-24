@@ -1,9 +1,9 @@
-import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
-import type { GetStaticProps, NextPage } from "next";
+import axios from "axios";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useState } from "react";
 import Checkbox from "../components/checkbox";
+import Graph from "../components/graph";
 
 interface Prefectures {
   props: {
@@ -39,7 +39,42 @@ const Home = ({ props }: Prefectures) => {
     prefName: string,
     prefCode: number,
     check: boolean
-  ) => {};
+  ) => {
+    console.log(prefName + prefCode + check);
+    let prefPopulationByCheck = prefPopulation.slice();
+
+    if (check) {
+      axios
+        .get(
+          "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=" +
+            String(prefCode),
+          {
+            headers: {
+              "X-API-KEY": `${process.env.NEXT_PUBLIC_RESAS_API_KEY}`,
+            },
+          }
+        )
+        .then((results) => {
+          prefPopulationByCheck.push({
+            prefName: prefName,
+            data: results.data.result.data[0].data,
+          });
+
+          setPrefPopulation(prefPopulationByCheck);
+        })
+        .catch((error) => {
+          return;
+        });
+    } else {
+      const deleteIndex = prefPopulationByCheck.findIndex(
+        (value) => prefName === value.prefName
+      );
+
+      if (deleteIndex === -1) return;
+      prefPopulationByCheck.splice(deleteIndex, 1);
+      setPrefPopulation(prefPopulationByCheck);
+    }
+  };
 
   return (
     <div className="container mx-auto">
@@ -49,9 +84,15 @@ const Home = ({ props }: Prefectures) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className="text-center xl:text-left bg-slate-200">
+        <h1 className="text-xl py-2">都道府県別の総人口推移グラフ</h1>
+      </div>
       <div className="py-6">
-        都道府県
+        <h2 className="pl-2 pb-4 xl:pl-0">都道府県</h2>
         <Checkbox prefectures={props.result} onChange={handleClickCheck} />
+      </div>
+      <div>
+        <Graph populationdata={prefPopulation} />
       </div>
     </div>
   );
