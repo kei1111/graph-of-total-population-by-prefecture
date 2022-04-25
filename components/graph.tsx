@@ -30,7 +30,8 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "",
+      text: "w",
+      y: -90,
     },
     xAxis: {
       title: {
@@ -39,9 +40,16 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       categories: categories,
     },
     yAxis: {
+      lineWidth: 1,
+      tickWidth: 1,
       title: {
+        align: "high",
         text: "人口数",
+        rotation: 0,
+        offset: 20,
+        y: -15,
       },
+      labels: {},
     },
 
     series:
@@ -51,7 +59,7 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
   };
 
   return (
-    <div>
+    <div className="pt-0">
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
