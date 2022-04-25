@@ -54,6 +54,7 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       },
       minorTickInterval: 100000, // 'auto'
       minorTickWidth: 2,
+      minorTickPosition: "inside",
       minorTickLength: 10,
       labels: {},
     },
