@@ -40,8 +40,11 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       categories: categories,
     },
     yAxis: {
-      lineWidth: 1,
-      tickWidth: 1,
+      lineWidth: 2,
+      tickWidth: 2,
+      minorGridLineWidth: 0,
+      tickInterval: 100000,
+      tickLength: 0,
       title: {
         align: "high",
         text: "人口数",
@@ -49,6 +52,9 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
         offset: 20,
         y: -15,
       },
+      minorTickInterval: 100000, // 'auto'
+      minorTickWidth: 2,
+      minorTickLength: 10,
       labels: {},
     },
 

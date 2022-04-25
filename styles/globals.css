@@ -8,3 +8,6 @@ body {
   line-height: 1.1;
   letter-spacing: 0em;
 }
+.highcharts-grid-line {
+  display: none;
+}
