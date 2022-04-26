@@ -34,10 +34,17 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       y: -90,
     },
     xAxis: {
+      lineWidth: 2,
+      tickWidth: 2,
+      tickLength: 5,
+      gridLineWidth: 10,
+      tickInterval: 2,
       title: {
+        align: "high",
         text: "年度",
       },
       categories: categories,
+      tickPosition: "inside",
     },
     yAxis: {
       lineWidth: 2,
