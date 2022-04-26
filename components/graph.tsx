@@ -17,9 +17,12 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
     let data = [];
 
     for (let pd of p.data) {
-      data.push(pd.value);
-      categories.push(String(pd.year));
+      if (pd.year >= 1980 && pd.year <= 2020) {
+        data.push(pd.value);
+        categories.push(String(pd.year));
+      }
     }
+    console.log(data);
 
     series.push({
       type: "line",
@@ -34,9 +37,11 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       y: -90,
     },
     xAxis: {
+      // min: 1980,
+      // max: 2020,
       lineWidth: 2,
       tickWidth: 2,
-      tickLength: 5,
+      tickLength: 10,
       gridLineWidth: 10,
       tickInterval: 2,
       title: {
@@ -47,6 +52,8 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       tickPosition: "inside",
     },
     yAxis: {
+      // min: 100000,
+      // max: 800000,
       lineWidth: 2,
       tickWidth: 2,
       minorGridLineWidth: 0,
