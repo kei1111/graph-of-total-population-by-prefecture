@@ -22,7 +22,6 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
         categories.push(String(pd.year));
       }
     }
-    console.log(data);
 
     series.push({
       type: "line",
@@ -35,6 +34,13 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
     title: {
       text: "w",
       y: -90,
+    },
+    legend: {
+      layout: "vertical",
+      align: "right",
+      verticalAlign: "middle",
+      itemMarginTop: 10,
+      itemMarginBottom: 10,
     },
     xAxis: {
       // min: 1980,
