@@ -43,8 +43,6 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       itemMarginBottom: 10,
     },
     xAxis: {
-      // min: 1980,
-      // max: 2020,
       lineWidth: 2,
       tickWidth: 2,
       tickLength: 10,
@@ -53,13 +51,13 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       title: {
         align: "high",
         text: "年度",
+        x: 40,
+        y: -18,
       },
       categories: categories,
       tickPosition: "inside",
     },
     yAxis: {
-      // min: 100000,
-      // max: 800000,
       lineWidth: 2,
       tickWidth: 2,
       minorGridLineWidth: 0,
@@ -76,7 +74,6 @@ const Graph: React.FC<Props> = ({ populationdata }) => {
       minorTickWidth: 2,
       minorTickPosition: "inside",
       minorTickLength: 10,
-      labels: {},
     },
 
     series:
