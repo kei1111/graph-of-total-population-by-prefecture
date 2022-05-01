@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Checkbox from "../components/checkbox";
 import Graph from "../components/graph";
+import { apiClient } from "../lib/api-client";
 
 interface Prefectures {
   props: {
@@ -16,13 +17,7 @@ interface Prefectures {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await axios.get(
-    "https://opendata.resas-portal.go.jp/api/v1/prefectures",
-    {
-      headers: { "X-API-KEY": `${process.env.NEXT_PUBLIC_RESAS_API_KEY}` },
-    }
-  );
-
+  const response = await apiClient.get("/prefectures");
   const props = response.data;
 
   return {
@@ -40,20 +35,11 @@ const Home = ({ props }: Prefectures) => {
     prefCode: number,
     check: boolean
   ) => {
-    console.log(prefName + prefCode + check);
     let prefPopulationByCheck = prefPopulation.slice();
 
     if (check) {
-      axios
-        .get(
-          "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=" +
-            String(prefCode),
-          {
-            headers: {
-              "X-API-KEY": `${process.env.NEXT_PUBLIC_RESAS_API_KEY}`,
-            },
-          }
-        )
+      apiClient
+        .get("/population/composition/perYear?prefCode=" + String(prefCode))
         .then((results) => {
           prefPopulationByCheck.push({
             prefName: prefName,
