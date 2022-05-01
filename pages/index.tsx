@@ -3,6 +3,7 @@ import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import Checkbox from "../components/checkbox";
+import { GetPopulationComposition } from "../components/getPopulationComposition";
 import Graph from "../components/graph";
 import { apiClient } from "../lib/api-client";
 
@@ -38,19 +39,14 @@ const Home = ({ props }: Prefectures) => {
     let prefPopulationByCheck = prefPopulation.slice();
 
     if (check) {
-      apiClient
-        .get("/population/composition/perYear?prefCode=" + String(prefCode))
-        .then((results) => {
-          prefPopulationByCheck.push({
-            prefName: prefName,
-            data: results.data.result.data[0].data,
-          });
-
-          setPrefPopulation(prefPopulationByCheck);
-        })
-        .catch((error) => {
-          return;
+      GetPopulationComposition(prefCode).then((results) => {
+        prefPopulationByCheck.push({
+          prefName: prefName,
+          data: results.data.result.data[0].data,
         });
+
+        setPrefPopulation(prefPopulationByCheck);
+      });
     } else {
       const deleteIndex = prefPopulationByCheck.findIndex(
         (value) => prefName === value.prefName
