@@ -6,6 +6,7 @@ export const GetPopulationComposition = async (prefCode: number) => {
       "/population/composition/perYear?prefCode=" + String(prefCode)
     );
   } catch (err: any) {
+    //todo any
     throw new Error(err.message);
   }
 };
