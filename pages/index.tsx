@@ -40,12 +40,14 @@ const Home = ({ props }: Prefectures) => {
 
     if (check) {
       GetPopulationComposition(prefCode).then((results) => {
-        prefPopulationByCheck.push({
-          prefName: prefName,
-          data: results.data.result.data[0].data,
-        });
+        if (results) {
+          prefPopulationByCheck.push({
+            prefName: prefName,
+            data: results.data.result.data[0].data,
+          });
 
-        setPrefPopulation(prefPopulationByCheck);
+          setPrefPopulation(prefPopulationByCheck);
+        }
       });
     } else {
       const deleteIndex = prefPopulationByCheck.findIndex(
